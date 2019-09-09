@@ -67,18 +67,21 @@ Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'maxmellon/vim-jsx-pretty'
 " coc-tsserver replaces this
 " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'itchyny/lightline.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'Yggdroot/indentLine'
 " Themes
 Plug 'ayu-theme/ayu-vim' 
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -87,9 +90,11 @@ Plug 'rakr/vim-two-firewatch'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'arcticicestudio/nord-vim'
 
+" Async linting instead of coc-tslint
+Plug 'dense-analysis/ale'
 " Coc Extensions
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
@@ -172,10 +177,17 @@ set termguicolors     " enable true colors support
 " For Gruvbox colorscheme
 " let g:gruvbox_italic = '1'
 " colorscheme gruvbox
-colorscheme ayu
+let g:indentLine_char = '│'
+let g:indentLine_first_char = '│'
+let g:indentLine_showFirstIndentLevel = 1
+" let g:indentLine_setColors = 0
 
-let g:lightline = { 'colorscheme': 'ayu' }
+let g:nord_italic = 1
+let g:nord_italic_comments = 1
+let g:nord_cursor_line_number_background = 1
+colorscheme nord
 
+" let g:lightline = { 'colorscheme': 'ayu' }
 " error sign gutter always open
 let g:ale_sign_column_always = 1
 set signcolumn=yes
