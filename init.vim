@@ -9,6 +9,7 @@ set softtabstop=2           " see multiple spaces as tabstops so <BS> does the r
 set expandtab               " converts tabs to white space
 set shiftwidth=2            " width for autoindents
 set autoindent              " indent a new line the same amount as the line just typed
+set smartindent
 set number                  " add line numbers
 set wildmode=longest,list   " get bash-like tab completions
 set cc=80                   " set an 80 column border for good coding style
@@ -63,19 +64,23 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " plugin section
 
+" Async linting instead of coc-tslint
+Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
-" Plug 'leafgarland/typescript-vim'
+" TS Syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'maxmellon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript' " tsx syntax highlighting 
+" Plug 'leafgarland/typescript-vim' " yats is better
 " coc-tsserver replaces this
 " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Plug 'maxmellon/vim-jsx-pretty' " DO NOT USE, kills highlighting for tsx
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
@@ -90,10 +95,9 @@ Plug 'rakr/vim-two-firewatch'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'arcticicestudio/nord-vim'
 
-" Async linting instead of coc-tslint
-Plug 'dense-analysis/ale'
 " Coc Extensions
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
@@ -185,7 +189,7 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
 let g:nord_cursor_line_number_background = 1
-colorscheme nord
+colorscheme ayu
 
 " let g:lightline = { 'colorscheme': 'ayu' }
 " error sign gutter always open
@@ -194,6 +198,3 @@ set signcolumn=yes
 
 " ----------- on Init ----------
 call NumberToggle()
-
-" disables annoying indent in favor of default
-" let g:typescript_indent_disable = 1
