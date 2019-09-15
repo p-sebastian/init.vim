@@ -12,7 +12,7 @@ set autoindent              " indent a new line the same amount as the line just
 set smartindent
 set number                  " add line numbers
 set wildmode=longest,list   " get bash-like tab completions
-set cc=80                   " set an 80 column border for good coding style
+" set cc=80                   " set an 80 column border for good coding style
 set splitbelow              " Horizontal split below current.
 set splitright              " Vertical split to right of current.
 
@@ -63,19 +63,23 @@ nnoremap Q @q   " Use Q to execute default register.
 call plug#begin('~/.local/share/nvim/plugged')
 
 " plugin section
-
+" Golang
+ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Async linting instead of coc-tslint
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'tpope/vim-surround'
 Plug 'pangloss/vim-javascript'
 " TS Syntax highlighting
-Plug 'HerringtonDarkholme/yats.vim'
 Plug 'peitalin/vim-jsx-typescript' " tsx syntax highlighting 
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'plasticboy/vim-markdown'
 " Plug 'leafgarland/typescript-vim' " yats is better
 " coc-tsserver replaces this
 " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Async completition
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Plug 'maxmellon/vim-jsx-pretty' " DO NOT USE, kills highlighting for tsx
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
@@ -85,7 +89,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'Yggdroot/indentLine'
 " Themes
 Plug 'ayu-theme/ayu-vim' 
@@ -95,14 +99,17 @@ Plug 'rakr/vim-two-firewatch'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'arcticicestudio/nord-vim'
 
+" Other
+" Plug 'Shougo/echodoc.vim'
 " Coc Extensions
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'neoclide/coc-tslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
 " Icons always last
 Plug 'ryanoasis/vim-devicons'
 
@@ -154,6 +161,23 @@ endfunction
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+" Coc
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" use <c-space>for trigger completion
+inoremap <silent><expr> <c-space> coc#refresh()
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:airline#extensions#coc#enabled = 1
+let g:ale_sign_column_always = 1
 
 " Prettier
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -171,6 +195,11 @@ let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 
+" Golang
+let g:go_fmt_command = "goimports" " Run goimports along gofmt on each save     
+let g:go_auto_type_info = 1        " Automatically get signature/type info for object under cursor  
+
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
 " Themes
 set termguicolors     " enable true colors support
@@ -193,8 +222,9 @@ colorscheme ayu
 
 " let g:lightline = { 'colorscheme': 'ayu' }
 " error sign gutter always open
-let g:ale_sign_column_always = 1
 set signcolumn=yes
+" Resize windows to =
+autocmd VimResized * wincmd =
 
 " ----------- on Init ----------
 call NumberToggle()
