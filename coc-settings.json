@@ -1,0 +1,28 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "markdown",
+    "typescript",
+    "typescriptreact",
+    "javascript",
+    "javascriptreact",
+    "json",
+    "graphql"
+  ],
+  "coc.preferences.hoverTarget": "preview",
+  "tsserver.tsdk": "/Users/sebastian/.nvm/versions/node/v12.8.0/lib/node_modules/typescript/lib",
+  "tsserver.npm": "/Users/sebastian/.nvm/versions/node/v12.8.0/bin/npm",
+  "tsserver.log": "verbose",
+  "tsserver.implicitProjectConfig.checkJs": false,
+  "tsserver.enableJavascript": false,
+  "tsserver.ignoreLocalTsserver": true,
+  "typescript.preferences.quoteStyle": "single",
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "prettier.onlyUseLocalVersion": true,
+  "suggest.enablePreview": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  }
+}
